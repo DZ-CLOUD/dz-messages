@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  app:
+    container_name: dz-cloud-service-messager
+    build: .
+    ports:
+      - '127.0.0.1:3000:3000'
+    restart: always
+volumes:
+  db:

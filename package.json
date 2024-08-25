@@ -17,7 +17,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon index.js"
+    "start-server-docker": "docker-compose up -d",
+    "start-server-dev": "nodemon index.js",
+    "start-server-prod": "nodemon index.js"
   },
   "author": "DZ Cloud Inc.",
   "license": "ISC",
