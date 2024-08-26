@@ -27,3 +27,18 @@ function loadMemberFromChannel(cid:string) {
         console.log(err)
     })
 }
+
+/**
+ * This function loads all channels from the user
+ * @param {string} uid 
+ */
+function loadChannelsFromUser(uid:string) {
+    fetch(`http://localhost:3000/api/v1/users/${uid}/channels`)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}

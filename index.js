@@ -40,8 +40,6 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1", apiV1);
 
-
-
 app.listen(3000, () => {
     console.log("Server started!");
     
