@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "removeComments": true,
+        "noImplicitAny": true,
+        "outDir": "../../public/js/",
+        "sourceMap": true,
+        "outFile": "app.js"
+    }
+}
