@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const ejs = require('ejs');
 const { resCode } = require('./functions/response');
 const apiV1 = require('./routers/ApiV1');
+const { protected, protectedAPI } = require('./middleware/verifyToken');
 
 const app = express();
 
@@ -30,18 +31,18 @@ db.once('open', () => {
 
 //Main
 app.get("/", (req, res) => {
-    try {
-        resCode(res, 200, "Success")
-    } catch (error) {
-        console.error(error);
-        
-    }
+  try {
+    resCode(res, 200, "Success")
+  } catch (error) {
+    console.error(error);
+
+  }
 });
 
-app.use("/api/v1", apiV1);
+app.use("/api/v1", protectedAPI, apiV1);
 
 app.listen(3000, () => {
-    console.log("Server started!");
-    
+  console.log("Server started!");
+
 })
 
