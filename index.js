@@ -9,7 +9,7 @@ const apiV1 = require('./routers/ApiV1');
 
 const app = express();
 
-app.use(express.static('./assets'));
+app.use(express.static('./public'));
 app.use(bodyParser.json());
 app.use(cookieParser())
 app.set("view engine", "ejs");
@@ -61,6 +61,4 @@ app.use("/api/v1", apiV1);
 
 app.listen(3000, () => {
   console.log("Server started!");
-
-})
-
+});
