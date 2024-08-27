@@ -4,3 +4,17 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
