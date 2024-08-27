@@ -28,12 +28,12 @@ const UserSchema = new Schema({
         backgroundColor: { type: String, required: true },
     },
     settings: {
-        theme: { type: String, required: true },
-        language: { type: String, required: true },
-        notifications: { type: Boolean, required: true },
+        theme: { type: String, default: 'light' },
+        language: { type: String, default: 'en' },
+        notifications: { type: Boolean, default: true },
         notificationPreferences:[notificationPreferenceSchema],
         privacy: { type: Boolean, required: true },
-        status: { type: String, required: true },
+        status: { type: String, default: 'online' },
     }
 });
 
