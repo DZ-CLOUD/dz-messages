@@ -12,6 +12,7 @@ const notificationPreferenceSchema = new Schema({
 const UserSchema = new Schema({
     uid: { type: String, required: true },
     username: { type: String, required: true },
+    displayName: { type: String, required: true },
     email: { type: String, required: true },
     security: {
         password: { type: String, required: true },
@@ -33,9 +34,16 @@ const UserSchema = new Schema({
         notifications: { type: Boolean, default: true },
         notificationPreferences:[notificationPreferenceSchema],
         privacy: { type: Boolean, required: true },
+        shareStatus: { type: Boolean, required: true },
         status: { type: String, default: 'online' },
+        sharePlayStatus: { type: Boolean, required: true },
+        playStatus: {
+            gameId: { type: String, default: "" },
+            gameStatus: { type: String, default: "" },
+            gameTime: { type: Date, default: Date.now() }
+        }
     }
-});
+}, { timestamps: true });
 
 const User = mongoose.model('User', UserSchema);
 

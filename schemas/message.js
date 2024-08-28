@@ -21,7 +21,7 @@ const MessageContentSchema = new Schema({
 })
 
 const MessageSchema = new Schema({
-    id: { type: String, required: true },
+    mid: { type: String, required: true },
     type: { type: Number, required: true },
     content: MessageContentSchema,
     author: { type: String, required: true },

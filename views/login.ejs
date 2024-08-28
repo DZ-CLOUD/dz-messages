@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Log in to DZ Messages">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="/css/helper.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/helper.js" defer></script>
+    <script src="/js/bundle.js" defer></script>
+    <script src="/js/app.js" defer></script>
+</head>
+
+<body>
+    <section>
+        <main>
+            <div class="container d-flex vh-100 align-items-center justify-content-center">
+                <div class="bg-dark p-4 rounded-3 w-50 shadow text-white">
+                    <form action="/api/v1/auth/login" method="post" class="d-flex flex-column gap-3">
+                        <div>
+                            <h5>Sign in</h5>
+                        </div>
+                        <div>
+                            <input type="email" name="email" class="form-control m-0" placeholder="E-Mail Address" id="email-adress" required>
+                        </div>
+                        <div>
+                            <input type="password" name="password" class="form-control m-0" placeholder="Password" id="password">
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                        </div>
+                        <div>
+                            <p>Don't have an account? <a href="/register">Sign up</a></p>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </main>
+    </section>
+</body>
+</html>

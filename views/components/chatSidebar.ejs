@@ -1,0 +1,32 @@
+<div class="bg-dark vh-100">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="?status=online">
+                <div class="d-flex align-items-center p-1">
+                    <div class="d-flex align-items-center">
+                        <md-icon>emoji_people</md-icon>
+                    </div>
+                    <div class="ms-2">
+                        <p class="mb-0">Friends</p>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <hr>
+    <ul class="nav flex-column">
+        <% channels.forEach(channel => { %>
+            <li class="nav-item active">
+                <a class="nav-link" href="/chat/<%= channel.cid %>">
+                    <div class="d-flex align-items-center p-1">
+                        <div>
+                        </div>
+                        <div class="ms-2">
+                            <p class="mb-0"><%= channel.name %></p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <% });%>
+    </ul>
+</div>

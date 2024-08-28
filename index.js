@@ -2,10 +2,15 @@ const express = require('express');
 const i18n = require('i18n');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
 const ejs = require('ejs');
-const { resCode, resRender } = require('./functions/response');
+const { resCode, resRender, resSend, resRedirect } = require('./functions/response');
 const apiV1 = require('./routers/ApiV1');
+const { protected } = require('./middleware/verifyToken');
+require("dotenv").config();
+const User = require('./schemas/user');
+const Channel = require('./schemas/channel');
 
 const app = express();
 
@@ -42,7 +47,7 @@ db.once('open', () => {
 //Main
 app.get("/", (req, res) => {
   try {
-    resCode(res, 200, "Success")
+    resRedirect(res, 200, "/login");
   } catch (error) {
     console.error(error);
 
@@ -56,7 +61,72 @@ app.get("/register", (req, res) => {
     console.error(err);
     resCode(res, 500);
   }
-})
+});
+
+app.get("/login", (req, res) => {
+  try {
+    res.cookie("lang", req.headers['accept-language'].split(",")[1]);
+    if (!req.cookies.clid) {
+      res.cookie("clid", uuid.v4(), { httpOnly: true });
+    }
+    resRender(res, 200, "login");
+  } catch (err) {
+    console.error(err);
+    resCode(res, 500);
+  }
+});
+
+app.get("/chat", protected, async (req, res) => {
+  const { uid } = req.cookies;
+  const { blocked, archived, muted } = req.query === true ? req.query : false;
+  const page = "home"
+
+  try {
+    const user = await User.findOne({ uid });
+    if (!user) {
+      return resCode(res, 404);
+    }
+
+    const channels = await Channel.find({ owner: user.uid, member: { $elemMatch: { uid: user.uid } } });
+    const channels_main = await Channel.find({ member: { $elemMatch: { uid: user.uid, blocked, archived, muted } } });
+
+    resRender(res, 200, "chat", { user, channels, channels_main, page });
+  } catch (err) {
+    console.error(err);
+    resCode(res, 500);
+  }
+});
+
+app.get("/chat/:cid", protected, async (req, res) => {
+  const { cid } = req.params;
+  const { uid } = req.cookies;
+  const page = "chat"
+
+  try {
+    const user = await User.findOne({uid});
+    if (!user) {
+      return resCode(res, 404);
+    }
+
+    const channels = await Channel.find({ owner: user.uid, member: { $elemMatch: { uid: user.uid } } });
+    const channel_focus = await Channel.findOne({ cid });
+
+
+    resRender(res, 200, "chat", { user, channels, channel_focus, page })
+  } catch (err) {
+    console.error(err);
+    resCode(res, 500);
+  }
+});
+
+app.get("/logout", (req, res) => {
+  try {
+    resRedirect(res, 200, "/api/v1/auth/logout");
+  } catch (err) {
+    console.error(err);
+    resCode(res, 500);
+  }
+});
 
 app.use("/api/v1", apiV1);
 

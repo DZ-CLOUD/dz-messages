@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chats</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/css/helper.css">
+    <link rel="stylesheet" href="/css/chat.css">
+    <link rel="stylesheet" href="/css/external.css">
+    <script src="/js/helper.js" defer></script>
+    <script src="/js/bundle.js" defer></script>
+    <script src="/js/app.js" defer></script>
+</head>
+
+<body class="container-fluid" data-bs-theme="<%= user.settings.theme %>">
+    <section>
+        <main>
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-2 p-0">
+                        <div>
+                            <%- include('components/chatSidebar') %>
+                        </div>
+                    </div>
+                    <div class="col p-0">
+                        <div>
+                            <% if (page !="chat") {%>
+                                <%- include('components/chatHeader') %>
+                            <%}%>
+                            <% if (page === 'chat') { %>
+                                <%- include('components/chatChannel') %>
+                                <%}%>
+                                <div class="p-3">
+                                    <% if (page === 'home') { %>
+                                        <% if (channels_main.length===0) { %>
+                                            <p>No chats found!</p>
+                                            <%}%>
+                                            <% channels_main.forEach(channel=> { %>
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/chat/<%= channel.cid %>">
+                                                        <div class="d-flex align-items-center p-1">
+                                                            <div>
+                                                            </div>
+                                                            <div class="ms-2">
+                                                                <p class="mb-0">
+                                                                    <%= channel.name %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <%});%>
+                                                    <%}%>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </section>
+</body>
+
+</html>

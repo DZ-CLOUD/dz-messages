@@ -38,4 +38,8 @@ function resRedirect(res, code, path) {
     res.status(code).redirect(path);
 }
 
-module.exports = { resJSON, resCode, resRender, resRedirect }
+function resSend(res, status, body) {
+    res.status(status).send(body);
+}
+
+module.exports = { resJSON, resCode, resRender, resRedirect, resSend }
