@@ -34,9 +34,9 @@ const UserSchema = new Schema({
         notifications: { type: Boolean, default: true },
         notificationPreferences:[notificationPreferenceSchema],
         privacy: { type: Boolean, required: true },
-        shareStatus: { type: Boolean, required: true },
+        shareStatus: { type: Boolean, default: true },
         status: { type: String, default: 'online' },
-        sharePlayStatus: { type: Boolean, required: true },
+        sharePlayStatus: { type: Boolean, default: true },
         playStatus: {
             gameId: { type: String, default: "" },
             gameStatus: { type: String, default: "" },
