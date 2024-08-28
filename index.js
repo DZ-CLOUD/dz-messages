@@ -11,6 +11,7 @@ const app = express();
 
 app.use(express.static('./public'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser())
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
@@ -26,7 +27,7 @@ i18n.configure({
 app.use(i18n.init);
 
 // Verbindungsaufbau zur Datenbank
-const dbUrl = "mongodb://localhost:27017/dz-messages"
+const dbUrl = "mongodb://127.0.0.1:27017/dz-messages"
 mongoose.connect(dbUrl);
 
 // Überprüfe die Verbindungsstatus

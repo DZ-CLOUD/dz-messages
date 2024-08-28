@@ -29,37 +29,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const emailInput = document.getElementById('email') as HTMLInputElement;
+
     const usernameInput = document.getElementById('username') as HTMLInputElement;
     const usernamePreview = document.getElementById('usernamePreview') as HTMLSpanElement;
     usernameInput.addEventListener('input', () => {
         usernamePreview.textContent = usernameInput.value;
     });
 
-    const imagePreview = document.getElementById('profilePicturePreview') as HTMLImageElement;
-    const profilePicture = document.getElementById('profilePicture') as HTMLInputElement;
-    profilePicture.addEventListener('change', () => {
-        const file = (event.target as HTMLInputElement).files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreview.src = e.target?.result as string;
-                imagePreview.classList.replace("d-none", "d-block")
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
     const passwordInput = document.getElementById('password') as HTMLInputElement;
     const confirmPasswordInput = document.getElementById('confirmPassword') as HTMLInputElement;
-    passwordInput.addEventListener('input', () => {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordInput.setCustomValidity('Passwords do not match');
-        } else {
-            confirmPasswordInput.setCustomValidity('');
+
+    submitButton.addEventListener('click', () => {
+        switch (true) {
+            case emailInput.value === '':
+                emailInput.setCustomValidity("Email is required");
+                currentStep = 0;
+                showStep(currentStep);
+                break;
+            case usernameInput.value === '':
+                usernameInput.setCustomValidity("Username is required");
+                currentStep = 1;
+                showStep(currentStep);
+                break;
+            case passwordInput.value !== confirmPasswordInput.value:
+                confirmPasswordInput.setCustomValidity("Passwords do not match");
+                currentStep = 3;
+                showStep(currentStep);
+                break;
+            default:
+                break;
         }
     });
-
-
 
     showStep(currentStep);
 });

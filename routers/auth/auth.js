@@ -1,10 +1,12 @@
-const mongoose = require('mongoose');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { resCode, resJSON } = require('../../functions/response');
+const uuid = require('uuid');
+const app = express();
+const { resCode, resJSON, resRedirect } = require('../../functions/response');
 const router = express.Router();
 const User = require('../../schemas/user');
+
 
 
 router.post("/login", async (req, res) => {
@@ -34,7 +36,50 @@ router.post("/login", async (req, res) => {
         console.error(err);
         resCode(res, 500);
     }
-})
+});
+
+router.post("/register", async (req, res) => {
+    const { username, email, password } = req.body;
+    const userAgentHeader = req.headers['user-agent'];
+
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return resCode(res, 409);
+        }
+
+        // Hash the password before saving to the database
+        const hashedPassword = await bcrypt.hash(password, 12);
+
+        const newUser = new User({
+            uid: uuid.v4(),
+            username,
+            email,
+            personal: {
+                avatar: "/img/profilePictures/default.webp"
+            },
+            security: {
+                password: hashedPassword
+            },
+            settings: {
+                privacy: true
+            }
+        });
+
+        await newUser.save();
+
+        if (!userAgentHeader.includes("postman") || !userAgentHeader.includes("curl") || !userAgentHeader.includes("insomnia")) {
+            resRedirect(res, 200, "/login");
+        } else {
+            resJSON(res, "success", 201, "User is registered successfully!");
+        }
+
+    } catch (err) {
+        console.error(err);
+        resCode(res, 500);
+
+    }
+});
 
 
 module.exports = router

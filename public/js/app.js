@@ -68,32 +68,33 @@ document.addEventListener('DOMContentLoaded', () => {
             showStep(currentStep);
         }
     });
+    const emailInput = document.getElementById('email');
     const usernameInput = document.getElementById('username');
     const usernamePreview = document.getElementById('usernamePreview');
     usernameInput.addEventListener('input', () => {
         usernamePreview.textContent = usernameInput.value;
     });
-    const imagePreview = document.getElementById('profilePicturePreview');
-    const profilePicture = document.getElementById('profilePicture');
-    profilePicture.addEventListener('change', () => {
-        const file = event.target.files?.[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imagePreview.src = e.target?.result;
-                imagePreview.classList.replace("d-none", "d-block");
-            };
-            reader.readAsDataURL(file);
-        }
-    });
     const passwordInput = document.getElementById('password');
     const confirmPasswordInput = document.getElementById('confirmPassword');
-    passwordInput.addEventListener('input', () => {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordInput.setCustomValidity('Passwords do not match');
-        }
-        else {
-            confirmPasswordInput.setCustomValidity('');
+    submitButton.addEventListener('click', () => {
+        switch (true) {
+            case emailInput.value === '':
+                emailInput.setCustomValidity("Email is required");
+                currentStep = 0;
+                showStep(currentStep);
+                break;
+            case usernameInput.value === '':
+                usernameInput.setCustomValidity("Username is required");
+                currentStep = 1;
+                showStep(currentStep);
+                break;
+            case passwordInput.value !== confirmPasswordInput.value:
+                confirmPasswordInput.setCustomValidity("Passwords do not match");
+                currentStep = 3;
+                showStep(currentStep);
+                break;
+            default:
+                break;
         }
     });
     showStep(currentStep);

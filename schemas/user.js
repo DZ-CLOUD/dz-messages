@@ -10,7 +10,7 @@ const notificationPreferenceSchema = new Schema({
 })
 
 const UserSchema = new Schema({
-    id: { type: String, required: true },
+    uid: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true },
     security: {
@@ -18,14 +18,14 @@ const UserSchema = new Schema({
     },
     personal: {
         avatar: { type: String, required: true },
-        biography: { type: String, required: true },
-        pronouns: { type: String, required: true },
-        banner: { type: String, required: true },
-        avatarOverlay: { type: String, required: true },
-        bannerOverlay: { type: String, required: true },
-        profileOverlay: { type: String, required: true },
-        accentColor: { type: String, required: true },
-        backgroundColor: { type: String, required: true },
+        biography: { type: String, default: "" },
+        pronouns: { type: String, default: "" },
+        banner: { type: String, default: "" },
+        avatarOverlay: { type: String, default: "" },
+        bannerOverlay: { type: String, default: "" },
+        profileOverlay: { type: String, default: "" },
+        accentColor: { type: String, default: "#5351c5" },
+        backgroundColor: { type: String, default: "#a9a9a9" },
     },
     settings: {
         theme: { type: String, default: 'light' },

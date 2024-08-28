@@ -18,8 +18,8 @@
     <section>
         <main>
             <div class="container d-flex vh-100 align-items-center justify-content-center">
-                <div class="bg-dark p-4 rounded-3 w-50 shadow">
-                    <form action="/register" method="post" class="d-flex flex-column gap-3">
+                <div class="bg-dark p-4 rounded-3 w-50 shadow overflow-hidden">
+                    <form action="/api/v1/auth/register" method="POST" class="d-flex flex-column gap-3">
                         <div class="page text-white" id="pageElement">
                             <div class="step active" id="step-1">
                                 <div>
@@ -27,7 +27,7 @@
                                     <p>Enter email address</p>
                                 </div>
                                 <div class="form-group d-flex flex-column">
-                                    <input type="email" class="form-control m-0" id="email" placeholder="E-Mail Address"
+                                    <input type="email" name="email" class="form-control m-0" id="email" placeholder="E-Mail Address"
                                         required>
                                 </div>
                             </div>
@@ -38,86 +38,25 @@
                                 </div>
                                 <div>
                                     <div class="form-group d-flex flex-column">
-                                        <input type="text" class="form-control m-0" id="username" placeholder="Username" maxlength="20"
+                                        <input type="text" name="username" class="form-control m-0" id="username" placeholder="Username" minlength="3" maxlength="20"
                                             required>
                                     </div>
                                 </div>
                             </div>
                             <div class="step" id="step-3">
                                 <div>
-                                    <h5>Your Profile</h5>
-                                    <p>Customize your profile</p>
-                                </div>
-                                <div class="p-2 border rounded-3 mb-3">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <img src="" alt="Profile Picture" width="64" height="64"
-                                                id="profilePicturePreview" class="rounded-circle">
-                                        </div>
-                                        <div class="col">
-                                            <div class="d-flex flex-column gap-2">
-                                                <p class="mb-0 fs-5" id="usernamePreview">Username</p>
-                                                <p class="mb-0 text-success">Online</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <div class="form-group d-flex flex-column mb-2">
-                                        <input type="file" class="form-control m-0" id="profilePicture"
-                                            placeholder="Profile Picture"
-                                            accept="image/png, image/jpeg, image/jpg, image/webp">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="step" id="step-4">
-                                <div>
                                     <h5>Legal Information</h5>
                                     <p>Information how we collect and use your data</p>
                                 </div>
-                                <div class="overflow-hidden">
-                                    <div class="overflow-hidden">
-                                        <p class="overflow-y-auto">
-                                            <h4>Privacy Policy</h4>
-                                            <p>We collect your data for the following purposes:</p>
-                                            <ul>
-                                                <li>To provide our services</li>
-                                                <li>To improve our services</li>
-                                                <li>To communicate with you</li>
-                                                <li>To prevent fraud and abuse</li>
-                                            </ul>
-                                            <p>We will not share your data with third parties without your consent.</p>
-                                            <p>You have the right to access, modify, and delete your data.</p>
-                                            <p>For more information, please refer to our full Privacy Policy.</p>
-                                            <h4>Terms of Service</h4>
-                                            <p>By using our services, you agree to the following terms:</p>
-                                            <ul>
-                                                <li>You are responsible for your own actions</li>
-                                                <li>You will not use our services for illegal purposes</li>
-                                                <li>You will not violate the privacy of others</li>
-                                                <li>You will not spam or harass others</li>
-                                                <li>You will not use our services to promote hate speech or violence</li>
-                                            </ul>
-                                            <p>For more information, please refer to our full Terms of Service.</p>
-                                            <h4>Cookie Policy</h4>
-                                            <p>We use cookies to improve your experience on our website.</p>
-                                            <p>Cookies are small text files that are stored on your computer by your web
-                                                browser.</p>
-                                            <p>We use cookies to:</p>
-                                            <ul>
-                                                <li>Remember your preferences</li>
-                                                <li>Track your usage of our website</li>
-                                                <li>Improve our website</li>
-                                            </ul>
-                                            <p>You can disable cookies in your browser settings.</p>
-                                            <p>For more information, please refer to our full Cookie Policy.</p>
-                                            <p class="fw-bold">The terms of service and other policies may differ from your country or region</p>
+                                <div>
+                                    <div>
+                                        <p>
+                                            By clicking on "Next" you accept the <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="step" id="step-5">
+                            <div class="step" id="step-4">
                                 <div>
                                     <h5>Security</h5>
                                     <p>Secure your account</p>
@@ -125,11 +64,11 @@
                                 <div>
                                     <div class="form-group d-flex flex-column mb-2">
                                         <input type="password" class="form-control m-0" id="password" placeholder="Password" minlength="12"
-                                            required>
+                                            name="password" required>
                                     </div>
                                     <div class="form-group d-flex flex-column">
                                         <input type="password" class="form-control m-0" id="confirmPassword" placeholder="Confirm Password" minlength="12"
-                                            required>
+                                            name="confirmPassword" required>
                                     </div>
                                 </div>
                             </div>
@@ -137,8 +76,8 @@
                                 <button type="button" class="btn border text-white" id="backButton"
                                     disabled>Back</button>
                                 <button type="button" class="btn btn-primary" id="nextButton">Next</button>
-                                <button type="submit" class="btn btn-success" id="submitButton"
-                                    style="display: none;">Submit</button>
+                                <button type="submit" class="btn btn-success w-25" id="submitButton"
+                                    style="display: none;">Sign Up</button>
                             </div>
                         </div>
                     </form>
