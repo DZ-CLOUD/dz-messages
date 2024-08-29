@@ -73,23 +73,6 @@ const MessageSchema = new Schema({
     pinned: false,
     mention_everyone: false,
     tts: false,
-
-    "author": {
-        "id": "639535606040625153",
-        "username": "donnerfranzel55",
-        "avatar": "9b3aaf28e5ab12662c12a55eade10a3d",
-        "discriminator": "0",
-        "public_flags": 64,
-        "flags": 64,
-        "banner": null,
-        "accent_color": 12534852,
-        "global_name": "DonnerFranzel55",
-        "avatar_decoration_data": null,
-        "banner_color": "#bf4444",
-        "clan": null
-    },
-    "nonce": "1278700460408045568"
-
 }, { timestamps: true });
 
 const Message = mongoose.model('Message', MessageSchema);
