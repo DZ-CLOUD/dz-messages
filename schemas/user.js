@@ -27,7 +27,7 @@ const UserSchema = new Schema({
         banner_overlay: { type: String, default: "" },
         profile_overlay: { type: String, default: "" },
         accent_color: { type: String, default: "#5351c5" },
-        background_color: { type: String, default: "#a9a9a9" },
+        background_color: { type: String, default: "#2c2c2c" },
     },
     settings: {
         theme: { type: String, default: 'light' },
