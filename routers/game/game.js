@@ -59,7 +59,7 @@ router.post("/create", async (req,res) => {
 
         const gameDirectory = path.join(__dirname, '/../../public/games', gid);
         const gameIconFilePath = path.join(gameDirectory, 'icon.webp');
-        const publicGameIconPath = `/games/${gid}/icon.webp`
+        const publicGameIconPath = `/games/${gid}/icon.webp`;
         await icon.mv(gameIconFilePath);
 
         const newGame = new Game({
@@ -71,7 +71,7 @@ router.post("/create", async (req,res) => {
         return resCode(res, 200, newGame);
     } catch (e) {
         console.error(e);
-        resCode(res, 500)
+        resCode(res, 500);
     }
 })
 
