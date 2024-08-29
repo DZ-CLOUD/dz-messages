@@ -5,10 +5,16 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const ejs = require('ejs');
+const busboy = require('busboy');
+const fileUpload = require('express-fileupload');
+const path = require('path');
+
 const { resCode, resRender, resSend, resRedirect } = require('./functions/response');
 const apiV1 = require('./routers/ApiV1');
 const { protected } = require('./middleware/verifyToken');
+
 require("dotenv").config();
+
 const User = require('./schemas/user');
 const Channel = require('./schemas/channel');
 
@@ -17,7 +23,8 @@ const app = express();
 app.use(express.static('./public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser())
+app.use(fileUpload({ createParentPath: true, limits: { fileSize: 2 * 1024 * 1024 } }));
+app.use(cookieParser());
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
 
@@ -103,7 +110,7 @@ app.get("/chat/:cid", protected, async (req, res) => {
   const page = "chat"
 
   try {
-    const user = await User.findOne({uid});
+    const user = await User.findOne({ uid });
     if (!user) {
       return resCode(res, 404);
     }

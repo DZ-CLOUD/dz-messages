@@ -1,7 +1,10 @@
 const express = require('express');
 const { resCode, resJSON } = require('../../functions/response');
 const router = express.Router();
+const uuid = require("uuid")
+const path = require("path")
 const Game = require('../../schemas/game');
+
 
 router.get("/", async (req, res) => {
     try {
@@ -41,5 +44,35 @@ router.get("/:name", async (req, res) => {
     }
 })
 
+router.post("/create", async (req,res) => {
+    const { name } = req.body;
+    const { icon } = req.files;
+
+    try {
+        if (!name || !icon) {
+            return resCode(res, 400);
+        }
+
+        const existingGame = await Game.findOne({name});
+        if (existingGame){ return resCode(res, 400, "Game already exists!")};
+        const gid = uuid.v4();
+
+        const gameDirectory = path.join(__dirname, '/../../public/games', gid);
+        const gameIconFilePath = path.join(gameDirectory, 'icon.webp');
+        const publicGameIconPath = `/games/${gid}/icon.webp`
+        await icon.mv(gameIconFilePath);
+
+        const newGame = new Game({
+            gid,
+            name,
+            icon: publicGameIconPath,
+        });
+        await newGame.save();
+        return resCode(res, 200, newGame);
+    } catch (e) {
+        console.error(e);
+        resCode(res, 500)
+    }
+})
 
 module.exports = router;

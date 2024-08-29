@@ -19,10 +19,11 @@ const UserSchema = new Schema({
     },
     personal: {
         avatar: { type: String, required: true },
+        avatarOverlay: { type: String, default: "" },
         biography: { type: String, default: "" },
         pronouns: { type: String, default: "" },
-        banner: { type: String, default: "" },
-        avatarOverlay: { type: String, default: "" },
+        banner: { type: String, default: null },
+        bannerColor: { type: String, default: "#5351c5" },
         bannerOverlay: { type: String, default: "" },
         profileOverlay: { type: String, default: "" },
         accentColor: { type: String, default: "#5351c5" },

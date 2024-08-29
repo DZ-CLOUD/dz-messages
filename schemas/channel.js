@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const MemberSchema = new Schema({
+const MemberSchema                       = new Schema({
     uid: {type: String, required: true },
     joined: {type: Date, required: true },
     role: {type: String, required: true },
@@ -21,6 +21,7 @@ const MemberSchema = new Schema({
 
 const ChannelSchema = new Schema({
     cid: {type: String, required: true },
+    pid: {type: String, default: null},
     type: {type: Number, required: true, enum: [0,1,2,3] },
     name: {type: String, required: true },
     readOnly: {type: Boolean, required: true },

@@ -1,7 +1,7 @@
 /**
  * An enum to set the single message types.
  */
-enum MESSAGE_TYPE { TEXT, ATTACHMENT, POLL, EMBETTED }
+enum MESSAGE_TYPE { TEXT, ATTACHMENT, POLL, EMBETTED, CALL }
 
 /**
  * This enum sets the type for the ATTACHMENT type
