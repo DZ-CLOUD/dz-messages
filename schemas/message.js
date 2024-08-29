@@ -37,7 +37,7 @@ const fieldsSchema = new Schema({
     inline: { type: Boolean, required: true }
 });
 
-const embededSchema = new Schema({
+const embeddedSchema = new Schema({
     type: { type: String, required: true, enum: ["rich", "link"] },
     url: { type: String, required: true },
     title: { type: String, required: true },
@@ -67,7 +67,7 @@ const MessageSchema = new Schema({
     timestamp: { type: Date, default: Date.now() },
     mentions: [],
     mention_roles: [],
-    embeds: [embededSchema],
+    embeds: [embeddedSchema],
     flags: 0,
     components: [],
     pinned: false,
