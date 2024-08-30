@@ -8,6 +8,7 @@ const ejs = require('ejs');
 const busboy = require('busboy');
 const fileUpload = require('express-fileupload');
 const path = require('path');
+require("dotenv").config();
 
 const { resCode, resRender, resSend, resRedirect } = require('./functions/response');
 const apiV1 = require('./routers/ApiV1');
