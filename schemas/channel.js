@@ -13,8 +13,8 @@ const MemberSchema                       = new Schema({
         read: {type: Boolean, default: true },
         delete: {type: Boolean, default: true },
         edit: {type: Boolean, default: true },
-        addMember: {type: Boolean, default: true },
-        removeMember: {type: Boolean, default: true },
+        add_member: {type: Boolean, default: true },
+        remove_member: {type: Boolean, default: true },
         export: {type: Boolean, default: true },
     },
 });
@@ -22,16 +22,19 @@ const MemberSchema                       = new Schema({
 const ChannelSchema = new Schema({
     cid: {type: String, required: true },
     pid: {type: String, default: null},
+    guild_id: { type: String, ref: "Guild",required: true},
     type: {type: Number, required: true, enum: [0,1,2,3] },
     name: {type: String, required: true },
-    readOnly: {type: Boolean, required: true },
+    read_only: {type: Boolean, required: true },
     owner: {type: String, required: true },
     description: {type: String, required: true },
     nsfw: {type: Boolean, required: true },
     icon: {type: String, required: true },
-    bitrate: {type: Number, default: null },
+    bitrate: {type: Number, default: 64000 },
+    user_limit: { type: Number, default: 0 },
+    rate_limit_per_user: { type: Number, default: 0},
     lastMessageId: {type: String, default: null },
-    member: [MemberSchema],
+    members: [MemberSchema],
 });
 
 const Channel = mongoose.model('Channel', ChannelSchema);
