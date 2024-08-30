@@ -3,4 +3,4 @@ node_modules/
 json/
 .env
 .vscode
-.idea
+.idea/
