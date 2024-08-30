@@ -27,7 +27,6 @@ const connectionSchema = new Schema({
 
 const UserSchema = new Schema({
     uid: { type: String, required: true },
-    guild_id: { type: String, ref: "Guild", required: true},
     username: { type: String, required: true },
     display_name: { type: String, required: true },
     email: { type: String, required: true },

@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const { resCode, resJSON } = require('../functions/response');
 const router = express.Router();
 const channelRouter = require('./channels/channels');
 const testRouter = require("./test/test")

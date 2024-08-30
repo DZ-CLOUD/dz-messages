@@ -49,7 +49,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-    const { username, email, password, confirmPassword, displayName } = req.body;
+    const { username, email, password, confirmPassword, display_name } = req.body;
     const userAgentHeader = req.headers['user-agent'];
 
     try {
@@ -65,9 +65,7 @@ router.post("/register", async (req, res) => {
         if (password !== confirmPassword) {
             return resCode(res, 400);
         }
-
-
-
+        
         // Hash the password before saving to the database
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
 
@@ -75,7 +73,7 @@ router.post("/register", async (req, res) => {
         const newUser = new User({
             uid: uuid.v4(),
             username,
-            displayName,
+            display_name,
             email,
             personal: {
                 avatar: "/img/profilePictures/default.webp"
