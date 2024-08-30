@@ -5,6 +5,7 @@ const sessionAuthSchema = new Schema({
     sid: { type: String, required: true },
     uid: { type: String, required: true },
     clid: { type: String, required: true },
+    guild_id: { type: String, ref: "Guild", required: true},
     device: { type: String, required: true },
     ip: { type: String, required: true },
     userAgent: { type: String, required: true },
