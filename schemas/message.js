@@ -16,7 +16,7 @@ const attachmentSchema = new Schema({
 
 const reactionSchema = new Schema({
     emoji: {
-        id: { type: String, required: true },
+        id: { type: String, default: null },
         name: { type: String, required: true },
     },
     count: { type: Number, required: true },
@@ -58,7 +58,8 @@ const embeddedSchema = new Schema({
 
 const MessageSchema = new Schema({
     mid: { type: String, required: true },
-    cid: { type: String, required: true },
+    cid: { type: String, ref: "Channel", required: true },
+    guild_id: { type: String, ref: "Guild", required: true},
     type: { type: Number, required: true },
     attachments: [attachmentSchema],
     reactions: [reactionSchema],
