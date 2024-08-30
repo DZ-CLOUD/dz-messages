@@ -6,5 +6,3 @@ function randomHexCode():string {
     }
     return hexCode;
 }
-
-console.log(randomHexCode())
