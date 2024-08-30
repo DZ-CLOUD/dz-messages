@@ -4,3 +4,33 @@
 .text_status{
     font-size: x-small;
 }
+.sidebar{
+    min-width: 215px;
+}
+.sidebar_icon{
+    font-size: 16px;
+}
+.sidebar_slider_thin {
+    /* For Firefox */
+    scrollbar-width: thin; /* Sets the scrollbar width to thin */
+    
+}
+
+/* For WebKit browsers (Chrome, Safari, Edge, etc.) */
+.sidebar_slider_thin::-webkit-scrollbar {
+    width: 8px; /* Adjust the width of the scrollbar */
+}
+
+.sidebar_slider_thin::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Background color of the scrollbar track */
+}
+
+.sidebar_slider_thin::-webkit-scrollbar-thumb {
+    background-color: #161617; /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Optional: round the edges of the thumb */
+}
+
+/* Optional: Hover effect for the thumb */
+.sidebar_slider_thin::-webkit-scrollbar-thumb:hover {
+    background-color: #444; /* Darker shade when hovering */
+}

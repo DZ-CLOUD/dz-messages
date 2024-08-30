@@ -31,7 +31,7 @@ app.disable("x-powered-by");
 
 // Configure i18n
 i18n.configure({
-    locales: ['en', 'de'], // Add more locales as needed
+    locales: ['en-US', 'de-DE'], // Add more locales as needed
     directory: __dirname + '/locales', // Specify the directory for your language files
     defaultLocale: 'en',
     cookie: 'lang',
@@ -73,7 +73,7 @@ app.get("/register", (req, res) => {
 
 app.get("/login", (req, res) => {
     try {
-        res.cookie("lang", req.headers['accept-language'].split(",")[1]);
+        res.cookie("lang", req.headers['accept-language'].split(",")[0]);
         if (!req.cookies.clid) {
             res.cookie("clid", uuid.v4(), {httpOnly: true});
         }

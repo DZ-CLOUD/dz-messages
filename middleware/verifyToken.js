@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const { resRedirect, resCode } = require('../functions/response');
-require('dotenv').config()
-
-const secretKey = process.env.SECRET_KEY; // Replace with your actual secret key
 
 function protected(req, res, next) {
     const { token } = req.cookies;
@@ -12,7 +9,7 @@ function protected(req, res, next) {
         return resRedirect(res, 401, "/login");
     }
 
-    jwt.verify(token, secretKey, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
             return resRedirect(res, 401, "/logout")
         }
@@ -28,7 +25,7 @@ function protectedAPI(req, res, next) {
         return resCode(res, 401);
     }
 
-    jwt.verify(token, secretKey, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
             return resCode(res, 401)
         }

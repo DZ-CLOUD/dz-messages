@@ -73,16 +73,24 @@ router.get("/:cid/member/:uid", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-    let {name, member, type } = req.body;
+    let { name, members, owner, nsfw, type } = req.body;
 
-    try{
-        if (member.length === 1){
+    try {
+        if (members.length === 1) {
             type = 0;
         }
         const newChannel = new Channel({
+            cid: uuid.v4(),
             name,
-            member,
-            type
+            members,
+            type,
+            owner,
+            nsfw,
+            icon: "/img/profilePictures/default.webp",
+        });
+        newChannel.save();
+        resJSON(res, "success", 200, {
+            newChannel
         })
     } catch (err) {
         console.error(err);

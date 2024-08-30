@@ -1,4 +1,4 @@
-<div class="bg-dark vh-100">
+<div class="vh-100 sidebar">
     <div class="h-100 d-flex flex-column">
         <ul class="nav d-flex align-items-top flex-column">
             <li class="nav-item">
@@ -15,7 +15,64 @@
             </li>
         </ul>
         <hr>
-        <ul class="nav h-75 flex-column">
+        <ul class="nav h-100 flex-column flex-nowrap overflow-y-auto sidebar_slider_thin">
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
+            <li>
+                <a class="nav-link" href="/chat?status=online">CHAT</a>
+            </li>
             <% channels.forEach(channel => { %>
                 <li class="nav-item active">
                     <a class="nav-link" href="/chat/<%= channel.cid %>">
@@ -28,41 +85,50 @@
                         </div>
                     </a>
                 </li>
-                <% });%>
+            <% }); %>
         </ul>
-        <div class="d-flex bg-danger p-1 align-items-end">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center">
-                    <div>
-                        <div>
-                            <img src="<%= user.avatar %>" class="rounded-circle" width="28" height="28" alt="<%= user.username %>">
+        <div class="d-flex p-1 align-items-end">
+            <div class="container-fluid px-2">
+                <div class="row row-cols-2">
+                    <div class="col">
+                        <div class="d-flex align-items-center w-100">
+                            <div class="d-flex align-items-center">
+                                <div>
+                                    <img src="<%= user.avatar %>" class="rounded-circle" width="28" height="28"
+                                         alt="<%= user.username %>">
+                                </div>
+                            </div>
+                            <div class="ms-2 w-75">
+                                <div>
+                                    <p class="mb-0 text-truncate text_username"><%= user.display_name %></p>
+                                    <p class="mb-0 text-truncate text_status"><%= user.status %></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex-grow-1 w-100 ms-2">
-                        <p class="mb-0 text-truncate text_username"><%= user.display_name %></p>
-                        <p class="mb-0 text-truncate text_status"><%= user.status %></p>
-                    </div>
-                    <div class="d-flex gap-2">
-                        <div class="d-flex align-items-center">
-                            <button type="button" class="btn btn-sm">
-                                <div class="d-flex align-items-center">
-                                    <md-icon>mic_off</md-icon>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <button type="button" class="btn btn-sm">
-                                <div class="d-flex align-items-center">
-                                    <md-icon>headphones</md-icon>
-                                </div>
-                            </button>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <button type="button" class="btn btn-sm">
-                                <div class="d-flex align-items-center">
-                                    <md-icon>settings</md-icon>
-                                </div>
-                            </button>
+                    <div class="col">
+                        <div class="d-flex h-100 align-items-center justify-content-end gap-1">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-sm border-0 p-0">
+                                    <div class="d-flex align-items-center">
+                                        <md-icon class="sidebar_icon">mic_off</md-icon>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-sm border-0 p-0">
+                                    <div class="d-flex align-items-center">
+                                        <md-icon class="sidebar_icon">headphones</md-icon>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-sm border-0 p-0">
+                                    <div class="d-flex align-items-center">
+                                        <md-icon class="sidebar_icon">settings</md-icon>
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

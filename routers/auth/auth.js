@@ -3,22 +3,21 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const app = express();
-const { resCode, resJSON, resRedirect } = require('../../functions/response');
+const {resCode, resJSON, resRedirect, resSend} = require('../../functions/response');
 const router = express.Router();
 const User = require('../../schemas/user');
 
 
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    const userAgnetHeader = req.headers['user-agent'];
-    const { clid } = req.cookies;
+    const {email, password} = req.body;
+    const {clid} = req.cookies;
 
     if (!clid) {
-        return resRedirect(res, 401, "/login");
+        return resCode(res, 400, "Missing Client ID");
     }
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
         if (!user) {
             return resCode(res, 404)
         }
@@ -28,20 +27,18 @@ router.post("/login", async (req, res) => {
             return resCode(res, 401, "E-Mail or Password is incorrect!");
         }
 
-        const token = jwt.sign({ userId: user._id, username: user.username }, process.env.SECRET_KEY, { expiresIn: '96d' });
-
+        const token = jwt.sign({userId: user._id, username: user.username}, process.env.SECRET_KEY, {expiresIn: '96d'});
+        const uid = user.uid;
+        const sid = uuid.v4();
 
         // Return the JWT to the client
-        if (userAgnetHeader.includes("postman") || userAgnetHeader.includes("curl") || userAgnetHeader.includes("insomnia")) {
-            return resJSON(res, "success", 200, {
-                email,
-                token
-            });
-        }
-        res.cookie("token", token, { httpOnly: true, path: "/", maxAge: 2 * 24 * 60 * 60 * 1000 });
-        res.cookie("uid", user.uid, { httpOnly: true, path: "/", maxAge: 2 * 24 * 60 * 60 * 1000 });
-        return resRedirect(res, 200, "/chat");
 
+        return resJSON(res, "success", 200, {
+            email,
+            token,
+            uid,
+            sid,
+        });
     } catch (err) {
         console.error(err);
         resCode(res, 500);
@@ -49,13 +46,12 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/register", async (req, res) => {
-    const { username, email, password, confirmPassword, display_name } = req.body;
-    const userAgentHeader = req.headers['user-agent'];
+    const {username, email, password, confirmPassword, display_name} = req.body;
 
     try {
         // Check if the user already exists
-        const existingUser = await User.findOne({ email });
-        const existingDisplayName = await User.findOne({ display_name });
+        const existingUser = await User.findOne({email});
+        const existingDisplayName = await User.findOne({display_name});
         if (existingUser || existingDisplayName) {
             // Return a conflict if the user exists
             return resCode(res, 409);
@@ -86,13 +82,7 @@ router.post("/register", async (req, res) => {
 
         // Save the user in the user collection
         await newUser.save();
-
-        // Return a success response
-        if (!userAgentHeader.includes("postman") || !userAgentHeader.includes("curl") || !userAgentHeader.includes("insomnia")) {
-            resRedirect(res, 200, "/login");
-        } else {
-            resJSON(res, "success", 201, "User is registered successfully!");
-        }
+        resJSON(res, "success", 201, "User is registered successfully!");
     } catch (err) {
         console.error(err);
         resCode(res, 500);
@@ -102,11 +92,6 @@ router.post("/register", async (req, res) => {
 
 router.get("/logout", async (req, res) => {
     try {
-        res.clearCookie("token");
-        res.clearCookie("uid");
-        if (!req.headers['user-agent'].includes("postman") || !req.headers['user-agent'].includes("curl") || !req.headers['user-agent'].includes("insomnia")) {
-            return resRedirect(res, 200, "/");
-        }
         return resJSON(res, "success", 200, "User is logged out successfully!");
     } catch (error) {
         console.error(error);
