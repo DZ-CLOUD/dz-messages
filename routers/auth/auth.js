@@ -55,7 +55,7 @@ router.post("/register", async (req, res) => {
     try {
         // Check if the user already exists
         const existingUser = await User.findOne({ email });
-        const existingDisplayName = await User.findOne({ displayName });
+        const existingDisplayName = await User.findOne({ display_name });
         if (existingUser || existingDisplayName) {
             // Return a conflict if the user exists
             return resCode(res, 409);
@@ -65,7 +65,7 @@ router.post("/register", async (req, res) => {
         if (password !== confirmPassword) {
             return resCode(res, 400);
         }
-        
+
         // Hash the password before saving to the database
         const hashedPassword = await bcrypt.hash(password, parseInt(process.env.BCRYPT_SALT));
 
@@ -75,9 +75,7 @@ router.post("/register", async (req, res) => {
             username,
             display_name,
             email,
-            personal: {
-                avatar: "/img/profilePictures/default.webp"
-            },
+            avatar: "/img/profilePictures/default.webp",
             security: {
                 password: hashedPassword
             },

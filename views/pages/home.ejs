@@ -1,0 +1,20 @@
+<div class="p-3">
+        <% if (channels_main.length===0) { %>
+            <p>No chats found!</p>
+            <%}%>
+            <% channels_main.forEach(channel=> { %>
+                <li class="nav-item">
+                    <a class="nav-link" href="/chat/<%= channel.cid %>">
+                        <div class="d-flex align-items-center p-1">
+                            <div>
+                            </div>
+                            <div class="ms-2">
+                                <p class="mb-0">
+                                    <%= channel.name %>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <%});%>
+</div>

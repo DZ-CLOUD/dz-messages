@@ -4,38 +4,24 @@
             <li class="nav-item">
                 <p class="navbar-text fw-bold mb-0">Friends</p>
             </li>
-            <div class="vr ms-3"></div>
             <li class="nav-item">
-                <a href="?status=online" class="nav-link">Online</a>
+                <a href="/chat?status=online" class="nav-link">Online</a>
             </li>
             <li class="nav-item">
                 <a href="/chat" class="nav-link">All</a>
             </li>
             <li class="nav-item">
-                <a href="?blocked=true" class="nav-link">Blocked</a>
+                <a href="/chat?blocked=true" class="nav-link">Blocked</a>
             </li>
             <li class="nav-item">
-                <a href="?muted=true" class="nav-link">Muted</a>
+                <a href="/chat?muted=true" class="nav-link">Muted</a>
             </li>
             <li class="nav-item">
-                <a href="?archived=true" class="nav-link">Archived</a>
+                <a href="/chat?archived=true" class="nav-link">Archived</a>
             </li>
             <li class="nav-item">
                 <a href="/add-friend" class="btn py-0 btn-success">Add Friend</a>
             </li>
         </ul>
-        <div class="d-flex align-items-center">
-            <div class="dropdown">
-                <button class="btn btn-secondary py-0 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <%= user.username%>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="">Profile</a></li>
-                  <li><a class="dropdown-item" href="/settings">Settings</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/api/v1/auth/logout">Logout</a></li>
-                </ul>
-              </div>
-        </div>
     </div>
 </div>

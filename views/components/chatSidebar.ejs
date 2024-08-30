@@ -1,32 +1,72 @@
 <div class="bg-dark vh-100">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="?status=online">
-                <div class="d-flex align-items-center p-1">
-                    <div class="d-flex align-items-center">
-                        <md-icon>emoji_people</md-icon>
-                    </div>
-                    <div class="ms-2">
-                        <p class="mb-0">Friends</p>
-                    </div>
-                </div>
-            </a>
-        </li>
-    </ul>
-    <hr>
-    <ul class="nav flex-column">
-        <% channels.forEach(channel => { %>
-            <li class="nav-item active">
-                <a class="nav-link" href="/chat/<%= channel.cid %>">
+    <div class="h-100 d-flex flex-column">
+        <ul class="nav d-flex align-items-top flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="/chat?status=online">
                     <div class="d-flex align-items-center p-1">
-                        <div>
+                        <div class="d-flex align-items-center">
+                            <md-icon>emoji_people</md-icon>
                         </div>
                         <div class="ms-2">
-                            <p class="mb-0"><%= channel.name %></p>
+                            <p class="mb-0">Friends</p>
                         </div>
                     </div>
                 </a>
             </li>
-            <% });%>
-    </ul>
+        </ul>
+        <hr>
+        <ul class="nav h-75 flex-column">
+            <% channels.forEach(channel => { %>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/chat/<%= channel.cid %>">
+                        <div class="d-flex align-items-center p-1">
+                            <div>
+                            </div>
+                            <div class="ms-2">
+                                <p class="mb-0"><%= channel.name %></p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <% });%>
+        </ul>
+        <div class="d-flex bg-danger p-1 align-items-end">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center">
+                    <div>
+                        <div>
+                            <img src="<%= user.avatar %>" class="rounded-circle" width="28" height="28" alt="<%= user.username %>">
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 w-100 ms-2">
+                        <p class="mb-0 text-truncate text_username"><%= user.display_name %></p>
+                        <p class="mb-0 text-truncate text_status"><%= user.status %></p>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm">
+                                <div class="d-flex align-items-center">
+                                    <md-icon>mic_off</md-icon>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm">
+                                <div class="d-flex align-items-center">
+                                    <md-icon>headphones</md-icon>
+                                </div>
+                            </button>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <button type="button" class="btn btn-sm">
+                                <div class="d-flex align-items-center">
+                                    <md-icon>settings</md-icon>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

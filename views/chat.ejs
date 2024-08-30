@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="/css/helper.css">
     <link rel="stylesheet" href="/css/chat.css">
     <link rel="stylesheet" href="/css/external.css">
+    <link rel="stylesheet" href="/css/app.css">
     <script src="/js/helper.js" defer></script>
     <script src="/js/bundle.js" defer></script>
     <script src="/js/app.js" defer></script>
 </head>
 
-<body class="container-fluid" data-bs-theme="<%= user.settings.theme %>">
+<body class="container-fluid overflow-hidden" data-theme="<%= user.settings.theme %>">
     <section>
         <main>
             <div class="container-fluid p-0">
@@ -27,34 +28,18 @@
                     </div>
                     <div class="col p-0">
                         <div>
-                            <% if (page !="chat") {%>
+                            <% if (page === "home" || page === "addFriend") {%>
                                 <%- include('components/chatHeader') %>
                             <%}%>
-                            <% if (page === 'chat') { %>
-                                <%- include('components/chatChannel') %>
-                                <%}%>
-                                <div class="p-3">
-                                    <% if (page === 'home') { %>
-                                        <% if (channels_main.length===0) { %>
-                                            <p>No chats found!</p>
-                                            <%}%>
-                                            <% channels_main.forEach(channel=> { %>
-                                                <li class="nav-item">
-                                                    <a class="nav-link" href="/chat/<%= channel.cid %>">
-                                                        <div class="d-flex align-items-center p-1">
-                                                            <div>
-                                                            </div>
-                                                            <div class="ms-2">
-                                                                <p class="mb-0">
-                                                                    <%= channel.name %>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </li>
-                                                <%});%>
-                                                    <%}%>
-                                </div>
+                            <% const pageMappings = { 
+                                addFriend: './pages/addFriend',
+                                home: './pages/home',
+                                chat: './pages/chat',
+                            }; 
+
+                            const includePage=pageMappings[page] || pageMappings.home; %>
+
+                            <%- include(includePage) %>                                
                         </div>
                     </div>
                 </div>
