@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const uuid = require("uuid")
 const { resCode, resJSON } = require('../../functions/response');
+const Channel = require("../../schemas/channel");
 const router = express.Router();
 
 router.get("/:cid", (req, res) => {
@@ -97,4 +98,5 @@ router.post("/create", (req, res) => {
         resCode(res, 500)
     }
 });
+
 module.exports = router;
