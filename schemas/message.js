@@ -68,11 +68,11 @@ const MessageSchema = new Schema({
     mentions: [],
     mention_roles: [],
     embeds: [embeddedSchema],
-    flags: 0,
+    flags: {type:Number, default: 0},
     components: [],
-    pinned: false,
-    mention_everyone: false,
-    tts: false,
+    pinned: {type:Boolean, default: false},
+    mention_everyone: {type:Boolean, default: false},
+    tts: {type:Boolean, default: false},
 }, { timestamps: true });
 
 const Message = mongoose.model('Message', MessageSchema);
