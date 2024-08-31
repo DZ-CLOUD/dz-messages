@@ -11,6 +11,9 @@ router.get("/:cid", async (req, res) => {
     const {cid} = req.params
     try {
         const channel = await Channel.findOne({cid});
+        if (!channel) {
+            return resCode(res, 404);
+        }
         resJSON(res, "success", 200, {
             cid,
             channel
@@ -27,6 +30,9 @@ router.get("/:cid/messages/", async (req, res) => {
     const {limit = 50} = req.query;
     try {
         const messages = await Message.find({cid}).limit(limit);
+        if (!messages) {
+            return resCode(res, 404);
+        }
         resJSON(res, "success", 200, {
             cid,
             messages
@@ -40,7 +46,10 @@ router.get("/:cid/messages/", async (req, res) => {
 router.get("/:cid/messages/:mid", async (req, res) => {
     const {cid, mid} = req.params;
     try {
-        const message = await Message.findOne({mid, cid})<
+        const message = await Message.findOne({mid, cid});
+        if (!message) {
+            return resCode(res, 404);
+        }
         resJSON(res, "success", 200, {
             cid,
             mid,
@@ -52,7 +61,6 @@ router.get("/:cid/messages/:mid", async (req, res) => {
     }
 });
 
-// TODO: Iterate the uids
 router.get("/:cid/member", async (req, res) => {
     const {cid} = req.params
     try {
