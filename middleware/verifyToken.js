@@ -20,8 +20,6 @@ function protected(req, res, next) {
 
 function protectedAPI(req, res, next) {
     const token = req.headers["authorization"];
-    console.log(req.headers);
-    
 
     if (!token) {
         return resCode(res, 401, "No token is provided!");
