@@ -19,15 +19,17 @@ function protected(req, res, next) {
 }
 
 function protectedAPI(req, res, next) {
-    const token = req.headers["Authorization"];
+    const token = req.headers["authorization"];
+    console.log(req.headers);
+    
 
     if (!token) {
-        return resCode(res, 401);
+        return resCode(res, 401, "No token is provided!");
     }
 
     jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
-            return resCode(res, 401)
+            return resCode(res, 401, "Token can't be verifyed!")
         }
 
         req.user = decoded; // Attach the decoded user information to the request object
