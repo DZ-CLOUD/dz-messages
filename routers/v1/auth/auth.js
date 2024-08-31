@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
 const app = express();
-const {resCode, resJSON, resRedirect, resSend} = require('../../functions/response');
+const {resCode, resJSON, resRedirect, resSend} = require('../../../functions/response');
 const router = express.Router();
-const User = require('../../schemas/user');
+const User = require('../../../schemas/user');
 
 
 router.post("/login", async (req, res) => {

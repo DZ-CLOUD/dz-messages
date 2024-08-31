@@ -1,9 +1,9 @@
 const express = require('express');
-const { resCode, resJSON } = require('../../functions/response');
+const { resCode, resJSON } = require('../../../functions/response');
 const router = express.Router();
 const uuid = require("uuid")
 const path = require("path")
-const Game = require('../../schemas/game');
+const Game = require('../../../schemas/game');
 
 
 router.get("/", async (req, res) => {
