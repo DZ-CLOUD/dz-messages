@@ -1,15 +1,19 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const uuid = require("uuid")
-const { resCode, resJSON } = require('../../functions/response');
+const {resCode, resJSON} = require('../../functions/response');
 const Channel = require("../../schemas/channel");
+const Message = require("../../schemas/message")
+const User = require("../../schemas/user");
 const router = express.Router();
 
-router.get("/:cid", (req, res) => {
-    const { cid } = req.params
+router.get("/:cid", async (req, res) => {
+    const {cid} = req.params
     try {
+        const channel = await Channel.findOne({cid});
         resJSON(res, "success", 200, {
-            cid
+            cid,
+            channel
         })
     } catch (err) {
         console.error(err);
@@ -18,13 +22,14 @@ router.get("/:cid", (req, res) => {
     }
 });
 
-router.get("/:cid/messages/", (req, res) => {
-    const { cid } = req.params;
-    const { limit = 50 } = req.query;
+router.get("/:cid/messages/", async (req, res) => {
+    const {cid} = req.params;
+    const {limit = 50} = req.query;
     try {
+        const messages = await Message.find({cid}).limit(limit);
         resJSON(res, "success", 200, {
             cid,
-            messages: []
+            messages
         })
     } catch (err) {
         console.error(err);
@@ -32,12 +37,14 @@ router.get("/:cid/messages/", (req, res) => {
     }
 });
 
-router.get("/:cid/messages/:mid", (req, res) => {
-    const { cid, mid } = req.params;
+router.get("/:cid/messages/:mid", async (req, res) => {
+    const {cid, mid} = req.params;
     try {
+        const message = await Message.findOne({mid, cid})<
         resJSON(res, "success", 200, {
             cid,
-            mid
+            mid,
+            message
         })
     } catch (err) {
         console.error(err);
@@ -45,12 +52,20 @@ router.get("/:cid/messages/:mid", (req, res) => {
     }
 });
 
-router.get("/:cid/member", (req, res) => {
-    const { cid } = req.params
+// TODO: Iterate the uids
+router.get("/:cid/member", async (req, res) => {
+    const {cid} = req.params
     try {
+        const channelMembers = await Channel.findOne({ cid }).select("members");
+        if (!channelMembers) {
+            return resCode(res, 404);
+        }
+        const membersIds = channelMembers.members;
+        const members = await User.find({ uid: {$in: membersIds.map(member => member.uid) } }).select("display_name username avatar play_status status");
+
         resJSON(res, "success", 200, {
             cid,
-            members: []
+            members
         })
     } catch (err) {
         console.error(err);
@@ -59,12 +74,21 @@ router.get("/:cid/member", (req, res) => {
     }
 });
 
-router.get("/:cid/member/:uid", (req, res) => {
-    const { cid, uid } = req.params
+router.get("/:cid/member/:uid", async (req, res) => {
+    const {cid, uid} = req.params
     try {
+        const channel = await Channel.findOne({cid}).select("members");
+        if (!channel) {
+            return resCode(res, 404);
+        }
+        const member = channel.members.find(member => member.uid === uid);
+        if (!member) {
+            return resCode(res, 404);
+        }
         resJSON(res, "success", 200, {
             cid,
             uid,
+            member
         })
     } catch (err) {
         console.error(err);
@@ -74,7 +98,7 @@ router.get("/:cid/member/:uid", (req, res) => {
 });
 
 router.post("/create", (req, res) => {
-    let { name, members, owner, nsfw, type } = req.body;
+    let {name, members, owner, nsfw, type} = req.body;
 
     try {
         if (members.length === 1) {
