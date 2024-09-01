@@ -19,6 +19,7 @@ function protected(req, res, next) {
 }
 
 function protectedAPI(req, res, next) {
+    console.log(req.headers)
     const token = req.headers["authorization"];
 
     if (!token) {

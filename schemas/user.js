@@ -33,15 +33,54 @@ const connectionSchema = new Schema({
     access_token: { type: String, default: undefined},
 });
 
+const userActivityApplicationStatisticsSchema = new Schema({
+    application_id: {type: String, required: true},
+    last_played_at: {type: Date, required: true},
+    first_played_at: {type: String, default: null,
+    total_duration: {type: Number, required: true},
+    total_sku_duration: {type: Number, required: true},
+})
+
+const entitlementsSchema = new Schema({
+    id: {type: String, required: true},
+    sku_id: {type: String, required: true},
+    application_id:{type: String, required: true},
+    user_id:{type: String, required: true},
+    promotion_id:{type: String, default: null},
+    type: {type: Number, required: true},
+    deleted: {type: Boolean, required: true},
+    gift_code_flags: {type: Number, default: 0},
+    ends_at: {type: Date, default: null},
+    sku_name: {type: String, required: true},
+})
+
 const UserSchema = new Schema({
     uid: {type: String, required: true},
+
     username: {type: String, required: true},
     display_name: {type: String, required: true},
+
+    discriminator: {type:Number, default: 0},
+    verified: {type: Boolean, default: false},
+
     email: {type: String, required: true},
-    security: {
-        password: {type: String, required: true},
-    },
+    needs_email_verification: {type: Boolean, default: true},
+    phone: {type:Number, required: true},
+    has_mobile: {type: Boolean, default: false},
+
+    premium_until: {type: Date, default: null},
+
+    flags: {type: Number, default: null},
+
+    temp_banned_until: {type: Date, default: null},
+
+    ip: {type: String, required: true},
+
+    user_activity_application_statistics: [userActivityApplicationStatisticsSchema],
+    entitlements: [entitlementsSchema],
+
     avatar: {type: String, required: true},
+    avatar_hash: {type: String, required: true},
     avatar_overlay: {type: String, default: null},
     avatar_decoration_data: {type: Array, default: null},
     biography: {type: String, default: null},
@@ -59,6 +98,12 @@ const UserSchema = new Schema({
         gameTime: {type: Date, default: ""}
     },
     settings: {
+        settings:{
+            security: {
+                password: {type: String, required: true},
+                password_updated: {type: Date, default: Date.now()},
+            },
+        },
         theme: {type: String, default: 'light'},
         language: {type: String, default: 'en'},
         notifications: {type: Boolean, default: true},
@@ -67,7 +112,7 @@ const UserSchema = new Schema({
         shareStatus: {type: Boolean, default: true},
         sharePlayStatus: {type: Boolean, default: true},
     },
-    flags: {type: Number, default: null},
+
     bio: {type: String, default: null},
     connected_accounts: [connectionSchema],
     premium_since: {type: Date, default: null},
