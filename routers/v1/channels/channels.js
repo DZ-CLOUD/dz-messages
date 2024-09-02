@@ -3,7 +3,7 @@ const express = require('express');
 const uuid = require("uuid")
 const { resCode, resJSON } = require('../../../functions/response');
 const Channel = require("../../../schemas/channel");
-const Message = require("../../../schemas/message")
+const Message = require("../../../schemas/message");
 const User = require("../../../schemas/user");
 const router = express.Router();
 
