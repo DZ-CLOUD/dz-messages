@@ -108,7 +108,7 @@ router.post("/register", async (req, res) => {
                         timezoneOffset
                     },
                     versions: {
-                        clientVersion: client_version,
+                        clientVersion: process.env.CLIENT_VERSION,
                     }
                 },
             });
