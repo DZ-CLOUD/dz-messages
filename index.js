@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const ejs = require('ejs');
+const cors = require("cors")
 const fileUpload = require('express-fileupload');
 const path = require('path');
 require("dotenv").config();
@@ -20,6 +21,17 @@ const Channel = require('./schemas/channel');
 
 const app = express();
 
+const corsOptions = {
+    origin: 'http://localhost:5500', // Update this to match your client
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow necessary headers
+    credentials: true, // If you need to send cookies or authentication headers
+};
+
+app.use(cors(corsOptions));
+
+app.options('*', cors(corsOptions));
+
 app.use(express.static('./public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -27,6 +39,7 @@ app.use(fileUpload({createParentPath: true, limits: {fileSize: 2 * 1024 * 1024}}
 app.use(cookieParser());
 app.set("view engine", "ejs");
 app.disable("x-powered-by");
+
 
 // Configure i18n
 i18n.configure({

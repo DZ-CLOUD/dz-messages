@@ -78,6 +78,7 @@ const relationshipSchema = new Schema({
 const deviceSchema = new Schema({
     did: {type: String, required: true},
     clid: {type: String, required: true},
+    csid: {type: String, required: true},
     created_at: {type: Date, default: Date.now()},
     expires_at: {type: Date, default: Date.now() + 15 * 60 * 60 * 24 * 1000}, // 15 days
     is_mfa:{type: Boolean, required: true},
