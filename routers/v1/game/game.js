@@ -57,7 +57,7 @@ router.post("/create", async (req,res) => {
         if (existingGame){ return resCode(res, 400, "Game already exists!")};
         const gid = uuid.v4();
 
-        const gameDirectory = path.join(__dirname, '/../../public/games', gid);
+        const gameDirectory = path.join(__dirname, '/../../usercontent/games', gid);
         const gameIconFilePath = path.join(gameDirectory, 'icon.webp');
         const publicGameIconPath = `/games/${gid}/icon.webp`;
         await icon.mv(gameIconFilePath);

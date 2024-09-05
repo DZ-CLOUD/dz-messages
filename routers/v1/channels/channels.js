@@ -71,6 +71,34 @@ router.put("/:cid", async (req, res) => {
     }
 })
 
+router.delete("/:cid", async (req, res) => {
+    const {cid} = req.params;
+    const {uid} = req.body;
+    try {
+        const channel = await Channel.findOne({cid});
+        if (!channel) {
+            return resCode(res, 404, "Channel not found!");
+        }
+
+        const validUserUUID = uuid.validate(uid);
+        const validChannelUUID = uuid.validate(cid);
+
+        if (!validUserUUID || !validChannelUUID) {
+            return resCode(res, 400, "ID can't be validated!")
+        }
+
+        if (uid !== channel.owner){
+            return resCode(res, 401, "Not allowed action.")
+        }
+
+        await Channel.findOneAndDelete({cid});
+        resCode(res, 200, "Deleted.")
+    } catch (e) {
+        console.error(e);
+        resCode(res, 500)
+    }
+})
+
 router.get("/:cid/messages", async (req, res) => {
     const {cid} = req.params;
     const {limit = 50} = req.query;
